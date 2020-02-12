@@ -5,9 +5,54 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+PROFILE_STARTUP=false
+if [[ "$PROFILE_STARTUP" == true ]]; then
+    # http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
+    PS4=$'%D{%M%S%.} %N:%i> '
+    exec 3>&2 2>/tmp/startlog.$$
+    setopt xtrace prompt_subst
+fi
+
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
 # Customize to your needs...
+#export EDITOR='vim'
+export EDITOR='subl -w'
+
+git-root() {
+        cd `git rev-parse --show-toplevel`
+}
+
+tunnel() {
+    ssh_config="tunnels"
+    pgrep -lf "ssh .* $ssh_config" | grep -w $ssh_config || ussh -f -N $ssh_config
+}
+
+mvn-fast() {
+    mvn -Dspotbugs.skip=true -Dcheckstyle.skip=true -DskipTests $@
+}
+
+ssh-add -A > /dev/null 2>&1
+
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+alias j11="export JAVA_HOME=`/usr/libexec/java_home -v 11`; java -version"
+alias j8="export JAVA_HOME=`/usr/libexec/java_home -v 1.8`; java -version"
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+
+source ~/.profile_corp
+source ~/.profile_go
+
+source ~/.profile_unshared
+
+eval "$(direnv hook zsh)"
+eval "$(pyenv init -)"
+
+if [[ "$PROFILE_STARTUP" == true ]]; then
+    unsetopt xtrace
+    exec 2>&3 3>&-
+fi
