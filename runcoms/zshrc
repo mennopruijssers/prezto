@@ -6,6 +6,12 @@
 #
 
 PROFILE_STARTUP=false
+ZPROF=false
+
+if [[ "$ZPROF" == true ]]; then
+  zmodload zsh/zprof 
+fi
+
 if [[ "$PROFILE_STARTUP" == true ]]; then
     # http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
     PS4=$'%D{%M%S%.} %N:%i> '
@@ -55,4 +61,8 @@ eval "$(pyenv init -)"
 if [[ "$PROFILE_STARTUP" == true ]]; then
     unsetopt xtrace
     exec 2>&3 3>&-
+fi
+
+if [[ "$ZPROF" == true ]]; then
+    zprof
 fi
