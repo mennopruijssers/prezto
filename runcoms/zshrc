@@ -140,3 +140,5 @@ fi
 if [[ "$ZPROF" == true ]]; then
     zprof
 fi
+
+alias jest='nocorrect jest' 
