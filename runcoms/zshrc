@@ -19,8 +19,13 @@ if [[ "$PROFILE_STARTUP" == true ]]; then
     setopt xtrace prompt_subst
 fi
 
-eval "$(direnv export zsh)"
-eval "$(fnm env --use-on-cd --version-file-strategy recursive)"
+if (( $+commands[direnv] )); then
+  eval "$(direnv export zsh)"
+fi
+
+if (( $+commands[fnm] )); then
+  eval "$(fnm env --use-on-cd --version-file-strategy recursive)"
+fi
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -62,10 +67,9 @@ ssh-add -A > /dev/null 2>&1
 #alias j8="export JAVA_HOME=`/usr/libexec/java_home -v 1.8`; java -version"
 #export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 
-source ~/.profile_corp
-source ~/.profile_go
-
-source ~/.profile_unshared
+[[ -f ~/.profile_corp ]] && source ~/.profile_corp
+[[ -f ~/.profile_go ]] && source ~/.profile_go
+[[ -f ~/.profile_unshared ]] && source ~/.profile_unshared
 
 #export NVM_DIR="$HOME/.nvm"
 #[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
