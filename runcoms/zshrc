@@ -42,8 +42,8 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
-#export EDITOR='vim'
-export EDITOR='subl -w'
+export EDITOR='vim'
+# export EDITOR='subl -w'
 
 git-root() {
         cd `git rev-parse --show-toplevel`
