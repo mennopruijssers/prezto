@@ -1,0 +1,37 @@
+# use by adding the following lines to ~/.gitconfig:
+# [include]
+#    path = .zprezto/runcoms/git-aliases
+
+[user]
+	name = Menno Pruijssers
+	email = menno@originalsuperman.nl
+
+
+[alias]
+
+co = "!git checkout"
+
+# Get the current branch name (not so useful in itself, but used in
+# other aliases)
+branch-name = "!git rev-parse --abbrev-ref HEAD"
+
+# Push the current branch to the remote "origin", and set it to track
+# the upstream branch
+publish = "!git push -u origin $(git branch-name)"
+
+# Delete any branches that have been merged into master
+# See also: https://gist.github.com/robmiller/5133264
+delete-merged-branches = "!git checkout master && git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+
+delete-gone-branches = "!git branch -vv | grep ': gone' | grep -v '\\*' | awk '{ print $1; }' | xargs -r git branch -D"
+
+hide = update-index --assume-unchanged
+unhide = update-index --no-assume-unchanged
+unhide-all = update-index --really-refresh
+hidden = !git ls-files -v | grep \"^[a-z]\"
+ignored = !git status -s --ignored | grep \"^!!\"
+
+update-master = "!git co master && git pull && git delete-gone-branches"
+update-master-and-rebase = "!git update-master && git co - && git rebase -"
+
+amend = commit --amend --no-edit
