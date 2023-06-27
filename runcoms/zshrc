@@ -70,14 +70,14 @@ mvn-fast() {
 
 ssh-add -A > /dev/null 2>&1
 
-[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 #alias j11="export JAVA_HOME=`/usr/libexec/java_home -v 11`; java -version"
 #alias j8="export JAVA_HOME=`/usr/libexec/java_home -v 1.8`; java -version"
 #export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 
-alias pt="echo use ripgrep (rg)!"
+alias pt="echo \"use ripgrep (rg)!\""
 [[ -f ~/.profile_corp ]] && source ~/.profile_corp
 [[ -f ~/.profile_go ]] && source ~/.profile_go
 [[ -f ~/.profile_unshared ]] && source ~/.profile_unshared
@@ -160,3 +160,17 @@ fi
 
 alias jest='nocorrect jest'
 alias yarn='nocorrect yarn'
+alias tsc='nocorrect tsc'
+
+# pnpm
+export PNPM_HOME="/Users/menno/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end
+
+if type brew &>/dev/null
+then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+
+  autoload -Uz compinit
+  compinit
+fi

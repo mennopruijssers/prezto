@@ -31,7 +31,8 @@ unhide-all = update-index --really-refresh
 hidden = !git ls-files -v | grep \"^[a-z]\"
 ignored = !git status -s --ignored | grep \"^!!\"
 
-update-master = "!git co master && git pull && git delete-gone-branches"
-update-master-and-rebase = "!git update-master && git co - && git rebase -"
+update-master = "!git checkout master && git pull && git delete-gone-branches"
+rebase-master = "!git update-master && git co - && git rebase -"
+pull-master = "pull --rebase origin master"
 
 amend = commit --amend --no-edit
