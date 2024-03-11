@@ -17,7 +17,7 @@ branch-name = "!git rev-parse --abbrev-ref HEAD"
 
 # Push the current branch to the remote "origin", and set it to track
 # the upstream branch
-publish = "!git push -u origin $(git branch-name)"
+publish = "!git push -u origin $(git branch-name) && open https://github.com/cutr-dev/cutr-server/pull/new/$(git branch-name)"
 
 # Delete any branches that have been merged into master
 # See also: https://gist.github.com/robmiller/5133264
@@ -31,8 +31,11 @@ unhide-all = update-index --really-refresh
 hidden = !git ls-files -v | grep \"^[a-z]\"
 ignored = !git status -s --ignored | grep \"^!!\"
 
-update-master = "!git checkout master && git pull && git delete-gone-branches"
-rebase-master = "!git update-master && git co - && git rebase -"
-pull-master = "pull --rebase origin master"
+# update-master = "!git checkout master && git pull && git delete-gone-branches"
+update-main = "!git checkout main && git pull && git delete-gone-branches"
+# rebase-master = "!git update-master && git co - && git rebase -"
+rebase-main = "!git update-main && git co - && git rebase -"
+# pull-master = "pull --rebase origin master"
+pull-main = "pull --rebase origin main"
 
 amend = commit --amend --no-edit
