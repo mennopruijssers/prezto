@@ -1,6 +1,6 @@
 # use by adding the following lines to ~/.gitconfig:
 # [include]
-#    path = .zprezto/runcoms/git-aliases
+#    path = .zprezto/runcoms/git-aliases.gitconfig
 
 [user]
 	name = Menno Pruijssers
