@@ -17,7 +17,7 @@ branch-name = "!git rev-parse --abbrev-ref HEAD"
 
 # Push the current branch to the remote "origin", and set it to track
 # the upstream branch
-publish = "!git push -u origin $(git branch-name) && open https://github.com/cutr-dev/cutr-server/pull/new/$(git branch-name)"
+pub = "!git push -u origin $(git branch-name) && open https://github.com/$(basename $(dirname $(git config --get remote.origin.url)))/$(basename $(git config --get remote.origin.url) .git)/pull/new/$(git branch-name)"
 
 # Delete any branches that have been merged into master
 # See also: https://gist.github.com/robmiller/5133264
