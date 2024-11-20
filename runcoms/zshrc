@@ -95,7 +95,7 @@ alias pt="echo \"use ripgrep (rg)!\""
 #[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 #[ -s "$NVM_DIR/etc/bash_completion.d/nvm" ] && . "$NVM_DIR/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-
+export PATH="${HOME}/bin:$PATH"
 export PATH="node_modules/.bin:$PATH"
 export PATH="${HOME}/.cargo/bin:$PATH"
 export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
