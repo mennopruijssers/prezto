@@ -21,9 +21,9 @@ pub = "!git push -u origin $(git branch-name) && open https://github.com/$(basen
 
 # Delete any branches that have been merged into master
 # See also: https://gist.github.com/robmiller/5133264
-delete-merged-branches = "!git checkout master && git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+delete-merged-branches = "!git checkout main && git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
 
-delete-gone-branches = "!git branch -vv | grep ': gone' | grep -v '\\*' | awk '{ print $1; }' | xargs -r git branch -D"
+delete-gone-branches = "!git branch -vv | grep ': gone' | grep -v '\\*' | grep -v '\\+' | awk '{ print $1; }' | xargs -r git branch -D"
 
 hide = update-index --assume-unchanged
 unhide = update-index --no-assume-unchanged
@@ -32,10 +32,9 @@ hidden = !git ls-files -v | grep \"^[a-z]\"
 ignored = !git status -s --ignored | grep \"^!!\"
 
 # update-master = "!git checkout master && git pull && git delete-gone-branches"
-update-main = "!git checkout main && git pull && git delete-gone-branches"
-# rebase-master = "!git update-master && git co - && git rebase -"
-rebase-main = "!git update-main && git co - && git rebase -"
+update-main = "!git fetch origin main:main && git checkout main && git delete-gone-branches"
+rebase-main = "!git fetch origin && git rebase origin/main"
 # pull-master = "pull --rebase origin master"
-pull-main = "pull --rebase origin main"
+
 
 amend = commit --amend --no-edit
